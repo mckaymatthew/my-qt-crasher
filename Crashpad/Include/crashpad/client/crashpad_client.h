@@ -25,7 +25,6 @@
 #include "base/files/file_path.h"
 #include "base/macros.h"
 #include "build/build_config.h"
-#include "build/chromeos_buildflags.h"
 #include "util/file/file_io.h"
 #include "util/misc/capture_context.h"
 
@@ -495,7 +494,7 @@ class CrashpadClient {
 #endif
 
 #if defined(OS_APPLE) || DOXYGEN
-  //! \brief Sets the process’ crash handler to a Mach service registered with
+  //! \brief Sets the process’ crash handler to a Mach service registered with
   //!     the bootstrap server.
   //!
   //! This method is only defined on macOS.
@@ -509,7 +508,7 @@ class CrashpadClient {
   //! \return `true` on success, `false` on failure with a message logged.
   bool SetHandlerMachService(const std::string& service_name);
 
-  //! \brief Sets the process’ crash handler to a Mach port.
+  //! \brief Sets the process’ crash handler to a Mach port.
   //!
   //! This method is only defined on macOS.
   //!
@@ -522,7 +521,7 @@ class CrashpadClient {
   //! \return `true` on success, `false` on failure with a message logged.
   bool SetHandlerMachPort(base::mac::ScopedMachSendRight exception_port);
 
-  //! \brief Retrieves a send right to the process’ crash handler Mach port.
+  //! \brief Retrieves a send right to the process’ crash handler Mach port.
   //!
   //! This method is only defined on macOS.
   //!
@@ -665,16 +664,6 @@ class CrashpadClient {
   //!     This may be useful when a child process inherits its parent’s Crashpad
   //!     handler, but wants to sever this tie.
   static void UseSystemDefaultHandler();
-#endif
-
-#if BUILDFLAG(IS_CHROMEOS_ASH)
-  //! \brief Sets a timestamp on the signal handler to be passed on to
-  //!     crashpad_handler and then eventually Chrome OS's crash_reporter.
-  //!
-  //! \note This method is used by clients that use `StartHandler()` to start
-  //!     a handler and not by clients that use any other handler starting
-  //!     methods.
-  static void SetCrashLoopBefore(uint64_t crash_loop_before_time);
 #endif
 
  private:
